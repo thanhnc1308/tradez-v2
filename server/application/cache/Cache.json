@@ -1,0 +1,15 @@
+{
+  "CacheConfig": {
+    "RedisServers": {
+      "Default": "0.0.0.0:6379"
+    },
+    "CacheItems": {
+      "UserInfo": {
+        "KeyFormat": "UserInfo_{uid}",
+        "CacheLevel": 3,
+        "ExpireTimeoutMem": 300,
+        "ExpireTimeout": 14400
+      }
+    }
+  }
+}

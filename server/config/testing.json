@@ -1,0 +1,30 @@
+[
+  {
+    "name": "FLASK_ENV",
+    "value": "testing"
+  },
+  {
+    "name": "POSTGRES_DB",
+    "value": "tradez_testing"
+  },
+  {
+    "name": "POSTGRES_USER",
+    "value": "admin"
+  },
+  {
+    "name": "POSTGRES_HOSTNAME",
+    "value": "localhost"
+  },
+  {
+    "name": "POSTGRES_PORT",
+    "value": "5433"
+  },
+  {
+    "name": "POSTGRES_PASSWORD",
+    "value": "12345678"
+  },
+  {
+    "name": "SECRET_KEY",
+    "value": "SECRET_KEY"
+  }
+]
