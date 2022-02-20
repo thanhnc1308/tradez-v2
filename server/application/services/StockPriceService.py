@@ -13,6 +13,7 @@ from application.technical_analysis.candlestick.candlestick import single_candle
 import pandas as pd
 import math
 from application.utility.datetime_utils import subtract_days
+from application.core.constants import DEFAULT_SCHEMA
 
 list_all_indicators = [
     'rsi14',
@@ -52,9 +53,7 @@ list_all_indicators = [
     'triple_candles',
 ]
 
-list_done_symbol = [
-    'A32', 'AAA', 'AAM', 'AAS', 'AAV', 'ABB', 'ABC', 'ABI', 'ABR'
-]
+list_done_symbol = []
 
 
 def get_indicators(indicator_str):
@@ -67,18 +66,19 @@ def get_indicators(indicator_str):
 def get_symbols(symbols_str):
     result = []
     if symbols_str == 'all':
-        sql = f'select symbol from public.stock s order by symbol;'
-        sql_result = Stock.execute(sql)
-        list_symbol = stocks_list_schema.dump(sql_result)
-        for item in list_symbol:
-            result.append(item['symbol'])
+        result = ['HPG', 'DIG', 'VIC', 'ACB', 'HAX']
+        # sql = f'select symbol from {DEFAULT_SCHEMA}.stock s order by symbol;'
+        # sql_result = Stock.execute(sql)
+        # list_symbol = stocks_list_schema.dump(sql_result)
+        # for item in list_symbol:
+        #     result.append(item['symbol'])
     elif str(symbols_str).find('limit') > -1 and str(symbols_str).find('offset') > -1:
         args = symbols_str.split('-')
         limit_str = args[0]
         offset_str = args[1]
         limit = limit_str.split('_')[1]
         offset = offset_str.split('_')[1]
-        sql = f'select symbol from public.stock s order by symbol limit {limit} offset {offset};'
+        sql = f'select symbol from {DEFAULT_SCHEMA}.stock s order by symbol limit {limit} offset {offset};'
         sql_result = Stock.execute(sql)
         list_symbol = stocks_list_schema.dump(sql_result)
         for item in list_symbol:
@@ -105,15 +105,13 @@ def get_value(indicator_value):
 
 
 def calculate_indicator_by_symbol(indicators, symbol):
-    # data = StockPrice.query.filter_by(symbol=symbol).order_by(asc('stock_date'))
-    data = StockPrice.query.filter(StockPrice.symbol == symbol, StockPrice.stock_date >= '2020-01-30',
-                                   StockPrice.stock_date <= '2021-07-04').order_by(asc('stock_date'))
+    data = StockPrice.query.filter_by(symbol=symbol).order_by(asc('stock_date'))
     df = get_df_stock_price_data(data)
-    for indicator in indicators:
-        df[indicator] = calculate_by_indicator(indicator, df)
-    for row in data:
-        data_updated = stock_price_schema.dump(row)
-        if data_updated.get('stock_date') >= '2021-01-30' and data_updated.get('stock_date') <= '2021-07-04':
+    if len(df) > 0:
+        for indicator in indicators:
+            df[indicator] = calculate_by_indicator(indicator, df)
+        for row in data:
+            data_updated = stock_price_schema.dump(row)
             for indicator in indicators:
                 indicator_row = df[df['stock_date'] == data_updated['stock_date']]
                 indicator_value = indicator_row[indicator].to_list()[0]

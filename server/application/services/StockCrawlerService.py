@@ -48,7 +48,7 @@ def get_all_stock_indices():
     # return result
 
 
-def crawl(stock_index, start_date='2021-02-05', end_date='2021-07-04'):
+def crawl(stock_index, start_date='2010-01-01', end_date='2030-12-31'):
     url = get_crawl_url(stock_index=stock_index, start_date=start_date, end_date=end_date)
     response = requests.get(url=url)
     if response.ok:

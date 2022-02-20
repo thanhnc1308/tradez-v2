@@ -36,3 +36,4 @@
 - docker exec -it {CONTAINER_ID} sh
 7. Database
 - Restore data: psql postgresql://admin:12345678@localhost:5432/tradez < StockData.sql
+- Backup data: pg_dump postgresql://admin:12345678@localhost:5432/tradez > StockData.sql

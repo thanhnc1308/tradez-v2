@@ -9,7 +9,6 @@ from application.controllers.JournalController import journal_controller
 from application.controllers.NotificationController import notification_controller
 from application.controllers.StockController import stock_controller
 from application.controllers.StockCrawlerController import stock_crawler_controller
-from application.controllers.StockPriceController import stock_price_controller
 from application.controllers.StockScreenerController import stock_screener_controller
 from application.controllers.BacktestController import backtest_controller
 
@@ -76,7 +75,6 @@ def configure_blueprint(app):
     app.register_blueprint(notification_controller)
     app.register_blueprint(stock_controller)
     app.register_blueprint(stock_crawler_controller)
-    app.register_blueprint(stock_price_controller)
     app.register_blueprint(stock_screener_controller)
     app.register_blueprint(backtest_controller)
 
