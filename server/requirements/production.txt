@@ -12,3 +12,4 @@ loguru==0.5.3
 kafka-python==2.0.2
 backtrader==1.9.76.123
 pandas==1.4.1
+celery==5.2.3
