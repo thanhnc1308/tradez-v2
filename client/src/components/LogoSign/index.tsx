@@ -74,7 +74,7 @@ function Logo() {
 
   return (
     <Tooltip title="Tradez" arrow>
-      <LogoWrapper to="/overview">
+      <LogoWrapper to="/">
         <LogoSignWrapper>
           <LogoSign>
             <LogoSignInner />
