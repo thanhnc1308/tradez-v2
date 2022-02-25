@@ -6,6 +6,7 @@ export enum EnumDialogType {
 
 export enum EnumColumnType {
     Text,
+    Date,
     DateTime,
     Number,
     Link,
@@ -19,6 +20,7 @@ export enum EnumFormatType {
     None,
     Text,
     Date,
+    DateTime,
     Timestamp,
     Currency,
     Percentage,

@@ -30,7 +30,7 @@ function BottomBarContent() {
 
   const user =
   {
-    name: 'Catherine Pike',
+    name: 'thanhnc',
     avatar: '/static/images/avatars/1.jpg'
   };
 

@@ -15,7 +15,7 @@ function ManagementUserProfile() {
 
   const user = {
     savedCards: 7,
-    name: 'Catherine Pike',
+    name: 'thanhnc',
     coverImg: '/static/images/placeholders/avatars/1.jpg',
     avatar: '/static/images/avatars/1.jpg',
     description: 'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable. If you are going to use a passage',

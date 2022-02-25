@@ -11,11 +11,11 @@ class Journal(BaseModel):
     transaction_date = db.Column(db.Date)
     symbol = db.Column(db.String(50), nullable=False)
     transaction_type = db.Column(db.String(10), nullable=False)
-    status = db.Column(db.String(10)) # win/lose
-    quantity = db.Column(db.Numeric)
+    # status = db.Column(db.String(10)) # win/lose
+    # quantity = db.Column(db.Numeric)
     entry = db.Column(db.Numeric)
     exit = db.Column(db.Numeric)
-    total_value = db.Column(db.Numeric)
+    # total_value = db.Column(db.Numeric)
     pnl = db.Column(db.Numeric)
     screenshot = db.Column(db.String())
     comments = db.Column(db.String())

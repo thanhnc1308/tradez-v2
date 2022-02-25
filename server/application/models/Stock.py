@@ -7,7 +7,6 @@ from application.core.BaseModel import BaseModel
 class Stock(BaseModel):
     __tablename__ = "stock"
 
-    id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, unique=True, nullable=False)
     symbol = db.Column(db.String(50), nullable=False)
     company_name = db.Column(db.String(), nullable=True)
 
