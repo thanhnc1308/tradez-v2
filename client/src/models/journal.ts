@@ -12,12 +12,13 @@ export default class journal extends BaseModel {
     comments?: string;
 
     constructor(newJournal) {
-        super();
+        super(newJournal);
         this.user_id = newJournal.user_id;
         this.transaction_date = newJournal.transaction_date;
         this.symbol = newJournal.symbol;
         this.transaction_type = newJournal.transaction_type;
         this.entry = newJournal.entry;
+        this.exit = newJournal.exit;
         this.pnl = newJournal.pnl;
         this.screenshot = newJournal.screenshot;
         this.comments = newJournal.comments;

@@ -1,1 +1,1 @@
-export type FormState = 'View' | 'Create' | 'Update' | 'Delete';
+export type FormState = 'View' | 'Add' | 'Edit' | 'Delete';

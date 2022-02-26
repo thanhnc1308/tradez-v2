@@ -3,6 +3,7 @@ import TableStore from 'src/common/TableStore';
 import BaseModel from 'src/models/BaseModel';
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
+import PageviewIcon from '@mui/icons-material/Pageview';
 import {
     Tooltip,
     Box,
@@ -19,14 +20,36 @@ import {
     useTheme
 } from '@mui/material';
 import { ColumnType } from 'src/common/columnConfigs';
+import { EnumFormatType } from 'src/common/enum';
+import { formatDate, formatDateTime } from 'src/common/format';
 
 interface BaseTableProps {
     multiple?: boolean;
     columns: ColumnType[];
     store: TableStore<BaseModel>;
+    onDoubleClick?: Function;
+    onClick?: Function;
+    onClickEdit?: Function;
+    onClickDelete?: Function;
+    onClickView?: Function;
+    hasActionEdit?: boolean;
+    hasActionView?: boolean;
+    hasActionDelete?: boolean;
 }
 
-const BaseTable: FC<BaseTableProps> = ({ columns, store, multiple = true }) => {
+const BaseTable: FC<BaseTableProps> = ({
+    columns,
+    store,
+    onDoubleClick,
+    onClick,
+    onClickEdit,
+    onClickDelete,
+    onClickView,
+    hasActionEdit = false,
+    hasActionView = false,
+    hasActionDelete = false,
+    multiple = true
+}) => {
     const theme = useTheme();
     // const [items, setItems] = useState<BaseModel[]>([]);
     const [selectedItems, setSelectedItems] = useState<string[]>([]);
@@ -84,6 +107,18 @@ const BaseTable: FC<BaseTableProps> = ({ columns, store, multiple = true }) => {
         setLimit(parseInt(event.target.value));
     };
 
+    const handleClickRow = (item: any, column: any): void => {
+        if (onClick instanceof Function) {
+            onClick(item, column);
+        }
+    };
+
+    const handleDoubleClick = (item: any, column: any): void => {
+        if (onDoubleClick instanceof Function) {
+            onDoubleClick(item, column);
+        }
+    };
+
     return (
         <>
             <TableContainer>
@@ -139,57 +174,171 @@ const BaseTable: FC<BaseTableProps> = ({ columns, store, multiple = true }) => {
                                         </TableCell>
                                     )}
                                     {columns.map((column) => {
-                                        return (
-                                            <TableCell
-                                                key={`{${column.key}_${item.id}`}
-                                                align={
-                                                    column.dataAlign ||
-                                                    column.columnAlign ||
-                                                    'center'
-                                                }
-                                            >
-                                                <Typography>
-                                                    {item[column.key]}
-                                                </Typography>
-                                            </TableCell>
-                                        );
+                                        if (
+                                            column.formatType ===
+                                            EnumFormatType.Date
+                                        ) {
+                                            return (
+                                                <TableCell
+                                                    key={`{${column.key}_${item.id}`}
+                                                    onClick={() =>
+                                                        handleClickRow(
+                                                            item,
+                                                            column
+                                                        )
+                                                    }
+                                                    onDoubleClick={() =>
+                                                        handleDoubleClick(
+                                                            item,
+                                                            column
+                                                        )
+                                                    }
+                                                    align={
+                                                        column.dataAlign ||
+                                                        column.columnAlign ||
+                                                        'center'
+                                                    }
+                                                >
+                                                    {formatDate(
+                                                        item[column.key]
+                                                    )}
+                                                </TableCell>
+                                            );
+                                        } else if (
+                                            column.formatType ===
+                                            EnumFormatType.DateTime
+                                        ) {
+                                            return (
+                                                <TableCell
+                                                    key={`{${column.key}_${item.id}`}
+                                                    onClick={() =>
+                                                        handleClickRow(
+                                                            item,
+                                                            column
+                                                        )
+                                                    }
+                                                    onDoubleClick={() =>
+                                                        handleDoubleClick(
+                                                            item,
+                                                            column
+                                                        )
+                                                    }
+                                                    align={
+                                                        column.dataAlign ||
+                                                        column.columnAlign ||
+                                                        'center'
+                                                    }
+                                                >
+                                                    {formatDateTime(
+                                                        item[column.key]
+                                                    )}
+                                                </TableCell>
+                                            );
+                                        }
+                                        else {
+                                            return (
+                                                <TableCell
+                                                    key={`{${column.key}_${item.id}`}
+                                                    onClick={() =>
+                                                        handleClickRow(
+                                                            item,
+                                                            column
+                                                        )
+                                                    }
+                                                    onDoubleClick={() =>
+                                                        handleDoubleClick(
+                                                            item,
+                                                            column
+                                                        )
+                                                    }
+                                                    align={
+                                                        column.dataAlign ||
+                                                        column.columnAlign ||
+                                                        'center'
+                                                    }
+                                                >
+                                                    <Typography>
+                                                        {item[column.key]}
+                                                    </Typography>
+                                                </TableCell>
+                                            );
+                                        }
                                     })}
-                                    <TableCell align="right">
-                                        <Tooltip title="Edit" arrow>
-                                            <IconButton
-                                                sx={{
-                                                    '&:hover': {
-                                                        background:
-                                                            theme.colors.primary
-                                                                .lighter
-                                                    },
-                                                    color: theme.palette.primary
-                                                        .main
-                                                }}
-                                                color="inherit"
-                                                size="small"
-                                            >
-                                                <EditTwoToneIcon fontSize="small" />
-                                            </IconButton>
-                                        </Tooltip>
-                                        <Tooltip title="Delete" arrow>
-                                            <IconButton
-                                                sx={{
-                                                    '&:hover': {
-                                                        background:
-                                                            theme.colors.error
-                                                                .lighter
-                                                    },
-                                                    color: theme.palette.error
-                                                        .main
-                                                }}
-                                                color="inherit"
-                                                size="small"
-                                            >
-                                                <DeleteTwoToneIcon fontSize="small" />
-                                            </IconButton>
-                                        </Tooltip>
-                                    </TableCell>
+                                    {(hasActionEdit ||
+                                        hasActionView ||
+                                        hasActionDelete) && (
+                                        <TableCell align="right">
+                                            {hasActionEdit && (
+                                                <Tooltip title="Edit" arrow>
+                                                    <IconButton
+                                                        sx={{
+                                                            '&:hover': {
+                                                                background:
+                                                                    theme.colors
+                                                                        .primary
+                                                                        .lighter
+                                                            },
+                                                            color: theme.palette
+                                                                .primary.main
+                                                        }}
+                                                        color="inherit"
+                                                        onClick={() =>
+                                                            onClickEdit(item)
+                                                        }
+                                                        size="small"
+                                                    >
+                                                        <EditTwoToneIcon fontSize="small" />
+                                                    </IconButton>
+                                                </Tooltip>
+                                            )}
+                                            {hasActionView && (
+                                                <Tooltip title="View" arrow>
+                                                    <IconButton
+                                                        sx={{
+                                                            '&:hover': {
+                                                                background:
+                                                                    theme.colors
+                                                                        .error
+                                                                        .lighter
+                                                            },
+                                                            color: theme.palette
+                                                                .error.main
+                                                        }}
+                                                        color="inherit"
+                                                        onClick={() =>
+                                                            onClickView(item)
+                                                        }
+                                                        size="small"
+                                                    >
+                                                        <PageviewIcon fontSize="small" />
+                                                    </IconButton>
+                                                </Tooltip>
+                                            )}
+                                            {hasActionDelete && (
+                                                <Tooltip title="Delete" arrow>
+                                                    <IconButton
+                                                        sx={{
+                                                            '&:hover': {
+                                                                background:
+                                                                    theme.colors
+                                                                        .error
+                                                                        .lighter
+                                                            },
+                                                            color: theme.palette
+                                                                .error.main
+                                                        }}
+                                                        color="inherit"
+                                                        onClick={() =>
+                                                            onClickDelete(item)
+                                                        }
+                                                        size="small"
+                                                    >
+                                                        <DeleteTwoToneIcon fontSize="small" />
+                                                    </IconButton>
+                                                </Tooltip>
+                                            )}
+                                        </TableCell>
+                                    )}
                                 </TableRow>
                             );
                         })}
