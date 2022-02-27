@@ -167,7 +167,6 @@ const DialogJournal: FC<DialogJournalProps> = ({
                                     onChange={handleChangeEntry}
                                     label="Entry"
                                     type="number"
-                                    variant="standard"
                                 />
                             </FormControl>
                         </Grid>
@@ -180,7 +179,6 @@ const DialogJournal: FC<DialogJournalProps> = ({
                                     onChange={handleChangeExit}
                                     label="Exit"
                                     type="number"
-                                    variant="standard"
                                 />
                             </FormControl>
                         </Grid>
@@ -209,7 +207,6 @@ const DialogJournal: FC<DialogJournalProps> = ({
                                     }
                                     type="text"
                                     fullWidth
-                                    variant="standard"
                                 />
                             </FormControl>
                         </Grid>

@@ -25,8 +25,9 @@ import { formatDate, formatDateTime } from 'src/common/format';
 
 interface BaseTableProps {
     multiple?: boolean;
-    columns: ColumnType[];
-    store: TableStore<BaseModel>;
+    columns?: ColumnType[];
+    store?: TableStore<BaseModel>;
+    data?: any[];
     onDoubleClick?: Function;
     onClick?: Function;
     onClickEdit?: Function;
@@ -40,6 +41,7 @@ interface BaseTableProps {
 const BaseTable: FC<BaseTableProps> = ({
     columns,
     store,
+    data,
     onDoubleClick,
     onClick,
     onClickEdit,
@@ -234,8 +236,7 @@ const BaseTable: FC<BaseTableProps> = ({
                                                     )}
                                                 </TableCell>
                                             );
-                                        }
-                                        else {
+                                        } else {
                                             return (
                                                 <TableCell
                                                     key={`{${column.key}_${item.id}`}

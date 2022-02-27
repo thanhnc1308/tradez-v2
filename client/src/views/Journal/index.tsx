@@ -12,7 +12,6 @@ import {
     Typography
 } from '@mui/material';
 import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
-import BulkActions from './BulkActions';
 import BaseTable from 'src/components/BaseTable';
 import TableStore from 'src/common/TableStore';
 import { columnsJournal } from 'src/common/columnConfigs';
@@ -49,7 +48,6 @@ const Journal: FC = () => {
     // multiple items selected in table
     const [selectedItems, setSelectedItems] = useState<string[]>([]);
     const [currentItem, setCurrentItem] = useState<journal>(defaultItem);
-    const showBulkActions = selectedItems.length > 0;
     const [open, setOpen] = useState(false);
 
     const handleClickAdd = (): void => {
@@ -138,12 +136,6 @@ const Journal: FC = () => {
                     <Grid item xs={12}>
                         <Card>
                             <Card>
-                                {showBulkActions && (
-                                    <Box flex={1} p={2}>
-                                        <BulkActions />
-                                    </Box>
-                                )}
-                                <Divider />
                                 <BaseTable
                                     store={store}
                                     columns={columnsJournal}

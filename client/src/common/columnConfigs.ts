@@ -85,7 +85,7 @@ export const columnsJournal: ColumnType[] = [
     }
 ];
 
-export const columnsNotification = [
+export const columnsNotification: ColumnType[] = [
     {
         key: 'created_at',
         label: 'Date',
@@ -124,7 +124,7 @@ export const columnsNotification = [
     }
 ];
 
-export const columnsStockPrice = [
+export const columnsStockPrice: ColumnType[] = [
     {
         key: 'symbol',
         label: 'Symbol',
@@ -139,13 +139,13 @@ export const columnsStockPrice = [
         label: 'Volatile',
         columnAlign: 'center',
         dataAlign: 'center',
-        minWidth: 200,
+        width: 200,
         columnType: EnumColumnType.SignedTag,
         formatType: EnumFormatType.AbsPercentage
     }
 ];
 
-export const columnsHistoricalPrice = [
+export const columnsHistoricalPrice: ColumnType[] = [
     {
         key: 'stock_date',
         label: 'Date',
@@ -197,25 +197,25 @@ export const columnsHistoricalPrice = [
         label: 'Close',
         columnAlign: 'center',
         dataAlign: 'center',
-        minWidth: 100,
+        width: 100,
         columnType: EnumColumnType.Number,
         formatType: EnumFormatType.Number
     }
 ];
 
-export const columnsStockScreener = [
+export const columnsStockScreener: ColumnType[] = [
     {
         key: 'symbol',
         label: 'Symbol',
         columnAlign: 'center',
         dataAlign: 'center',
-        minWidth: 120,
+        width: 120,
         columnType: EnumColumnType.Link,
         formatType: EnumFormatType.Text
     }
 ];
 
-export const columnsBacktestResult = [
+export const columnsBacktestResult: ColumnType[] = [
     {
         key: 'transaction_date',
         label: 'Transaction Date',
@@ -239,7 +239,7 @@ export const columnsBacktestResult = [
         label: 'Description',
         columnAlign: 'center',
         dataAlign: 'center',
-        minWidth: 200,
+        width: 200,
         columnType: EnumColumnType.Text,
         formatType: EnumFormatType.Text
     }
